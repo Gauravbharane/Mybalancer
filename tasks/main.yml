@@ -1,0 +1,55 @@
+---
+# tasks file for mybalancer
+- name: Install Haproxy balancer
+  package:
+    name: 
+      - haproxy
+    state: present
+
+# Install HTTPD package
+- name: Install Apache HTTP server (httpd)
+  package:
+    name: httpd
+    state: present
+
+# Configuration template of Haproxy will be replaced by haproxy.j2 configuration
+- name: Configuration Template of Haproxy
+  template:
+    src: haproxy.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restarted load balancer
+
+# Haproxy service will be started and enabled 
+- name: Start and Enable Haproxy service
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
+# Template for Apache index.html
+- name: Create Apache index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+
+# Restart Apache and firewalld
+- name: Restart Apache and firewalld services
+  service:
+    name: "{{ item }}"
+    state: restarted
+    enabled: true
+  loop:
+    - httpd
+    - firewalld
+
+# Ensure HTTP service is enabled in firewalld
+- name: Enable HTTP service in firewalld
+  command: firewall-cmd --zone=public --add-service=http --permanent
+  become: true
+
+# Reload firewalld
+- name: Reload firewalld to apply changes
+  systemd:
+    name: firewalld
+    state: reloaded
+  become: true
