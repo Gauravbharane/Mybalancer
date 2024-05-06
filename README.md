@@ -22,7 +22,7 @@ None
 
 Example Playbook
 ----------------
-
+<code>
   - hosts: servers
   vars:
     frontend:
@@ -39,6 +39,7 @@ Example Playbook
       # Add more backend servers as needed
   roles:
     - Mybalancer
+</code>
 
 
 License
