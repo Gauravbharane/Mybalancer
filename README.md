@@ -1,7 +1,7 @@
 Role Name : Mybalancer
 =========
 
-his Ansible role configures HAProxy as a load balancer and Apache as a web server. It sets up HAProxy to distribute incoming HTTP requests to multiple backend servers and configures Apache to serve web content.
+This Ansible role configures HAProxy as a load balancer and Apache as a web server. It sets up HAProxy to distribute incoming HTTP requests to multiple backend servers and configures Apache to serve web content.
 
 Requirements
 ------------
