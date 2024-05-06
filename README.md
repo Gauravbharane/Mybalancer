@@ -70,4 +70,7 @@ SOFTWARE.
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Author: Gaurav Bharane
+Contact: gauravbharane1839@gamil.com
+Github repository: https://github.com/Gauravbharane/Mybalancer.git
+Website: linktr.ee/gauravbharane/
