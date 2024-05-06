@@ -7,9 +7,9 @@
     state: present
 
 # Install HTTPD package
-- name: Install Apache HTTP server (httpd)
+- name: Install Apache HTTP server (apache2)
   package:
-    name: httpd
+    name: apache2
     state: present
 
 # Configuration template of Haproxy will be replaced by haproxy.j2 configuration
@@ -32,24 +32,27 @@
     src: index.html.j2
     dest: /var/www/html/index.html
 
-# Restart Apache and firewalld
+# Restart Apache service
 - name: Restart Apache and firewalld services
   service:
     name: "{{ item }}"
     state: restarted
     enabled: true
   loop:
-    - httpd
-    - firewalld
+    - apache2
+    
+#---------------------------------------------------------------------
+# Optional: Enable HTTP service in firewall (if using another firewall management service)
 
-# Ensure HTTP service is enabled in firewalld
-- name: Enable HTTP service in firewalld
-  command: firewall-cmd --zone=public --add-service=http --permanent
-  become: true
+
+# - name: Enable HTTP service in firewall
+#   command: firewall-cmd --zone=public --add-service=http --permanent
+#   become: true
+#   when: ansible_distribution == "CentOS"
 
 # Reload firewalld
-- name: Reload firewalld to apply changes
-  systemd:
-    name: firewalld
-    state: reloaded
-  become: true
+#- name: Reload firewalld to apply changes
+#  systemd:
+#    name: firewalld
+#    state: reloaded
+#  become: true
