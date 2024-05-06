@@ -26,15 +26,15 @@ Example Playbook
   - hosts: servers
   vars:
     frontend:
-      name: http-in
+      name: "http-in Hostname"
       port: 80
       default_backend: servers
     backend_servers:
-      - name: server1
-        ip: 127.0.0.1
+      - name: server1   #"your server hostname here "
+        ip: 172.0.0.0   #"your server ip here "
         port: 80
-      - name: server2
-        ip: 192.168.1.10
+      - name: server2   #"your server hostname here "  
+        ip: 172.0.0.0   #"your server ip here "
         port: 80
       # Add more backend servers as needed
   roles:
